@@ -2,11 +2,12 @@
   <ClientsList></ClientsList>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import ClientsList from "../components/entity/clients/ClientsList.vue";
 
-export default {
+export default defineComponent({
   name: "Clients",
   components: { ClientsList },
-};
+});
 </script>
