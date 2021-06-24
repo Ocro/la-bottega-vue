@@ -17,6 +17,7 @@
             })
           "
         />
+        <!-- TODO emiter un Service -->
         <input
           type="text"
           :value="modelValue.price"
@@ -67,17 +68,19 @@
     </div>
   </Dialog>
 </template>
-<script>
-import Dialog from "../../utils/Dialog";
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import Dialog from "../../utils/Dialog.vue";
+import Service from "../../../models/service";
 
-export default {
+export default defineComponent({
   name: "ServiceDialog",
   components: {
     Dialog,
   },
   props: {
     modelValue: {
-      type: Object,
+      type: Object as PropType<Service>,
       default: null,
     },
     isOpen: {
@@ -92,13 +95,17 @@ export default {
       default: "Enregistrer",
     },
   },
-  emits: ["update:modelValue", "close"],
+  emits: {
+    // eslint-disable-next-line no-unused-vars
+    "update:modelValue"(payload: Service) {
+      return true;
+    },
+    close: null,
+  },
   methods: {
-    closeDialog(save = false) {
+    closeDialog(save = false): void {
       this.$emit("close", save);
     },
   },
-};
+});
 </script>
-
-<style scoped></style>

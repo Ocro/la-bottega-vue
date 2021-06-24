@@ -17,11 +17,13 @@
   </router-link>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "MenuButton",
   props: ["title", "b-route-name"],
-};
+});
 </script>
 
 <style scoped></style>

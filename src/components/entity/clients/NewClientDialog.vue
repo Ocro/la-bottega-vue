@@ -7,15 +7,20 @@
   >
     <div class="mt-2">
       <div class="flex">
-        <input type="text" v-model="name" placeholder="name" />
-        <input type="text" v-model="firstname" placeholder="firstname" />
+        <input type="text" v-model="client.name" placeholder="name" />
+        <input type="text" v-model="client.firstname" placeholder="firstname" />
       </div>
-      <input type="text" v-model="address" placeholder="address" />
+      <input type="text" v-model="client.address" placeholder="address" />
       <div class="flex">
-        <input type="text" class="max-w-sm" v-model="npa" placeholder="npa" />
-        <input type="text" v-model="city" placeholder="city" />
+        <input
+          type="text"
+          class="max-w-sm"
+          v-model="client.npa"
+          placeholder="npa"
+        />
+        <input type="text" v-model="client.city" placeholder="city" />
       </div>
-      <input type="text" v-model="phone" placeholder="phone" />
+      <input type="text" v-model="client.phone" placeholder="phone" />
     </div>
 
     <div class="flex flex-nowrap justify-end">
@@ -38,32 +43,35 @@
     </div>
   </Dialog>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import Dialog from "../../utils/Dialog.vue";
+import Client from "../../../models/client";
 
-export default {
+export default defineComponent({
   name: "NewClientDialog",
   components: {
     Dialog,
   },
   data() {
     return {
-      name: "",
-      firstname: "",
-      address: "",
-      npa: "",
-      city: "",
-      phone: "",
+      client: {
+        id: null,
+        name: "",
+        firstname: "",
+        address: "",
+        npa: null,
+        city: "",
+        phone: "",
+      } as Client,
     };
   },
-  props: ["isOpen"],
-  emits: ["close"],
+  props: { isOpen: Boolean },
+  emits: { close: null },
   methods: {
-    closeDialog() {
+    closeDialog(): void {
       this.$emit("close");
     },
   },
-};
+});
 </script>
-
-<style scoped></style>

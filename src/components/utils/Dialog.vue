@@ -60,7 +60,8 @@
     </HeadlessuiDialog>
   </TransitionRoot>
 </template>
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import {
   TransitionRoot,
   TransitionChild,
@@ -69,7 +70,7 @@ import {
   DialogTitle,
 } from "@headlessui/vue";
 
-export default {
+export default defineComponent({
   name: "Dialog",
   components: {
     TransitionRoot,
@@ -78,13 +79,15 @@ export default {
     DialogOverlay,
     DialogTitle,
   },
-  props: ["isOpen", "classDialog", "title"],
+  props: {
+    isOpen: Boolean,
+    classDialog: String,
+    title: String,
+  },
   methods: {
-    closeDialog() {
+    closeDialog(): void {
       this.$emit("close");
     },
   },
-};
+});
 </script>
-
-<style scoped></style>

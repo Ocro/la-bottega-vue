@@ -159,23 +159,26 @@
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 // TODO rounded-full pour la search bar or not?
 // TODO ajouter un bouton "effacer" pour vider facilement le champ de recherche quand il y a du texte.
 // TODO Voir pour un gris plus... noir et moins bleu.
 // TODO recherche pas numéro de téléphone
+import { defineComponent } from "vue";
 import {
   SearchIcon,
   UserAddIcon,
   DotsVerticalIcon,
   ScissorsIcon,
   DatabaseIcon,
+  // @ts-ignore
 } from "@heroicons/vue/solid";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import NewClientDialog from "./entity/clients/NewClientDialog";
-import ServiceDialog from "./entity/services/ServiceDialog";
+import NewClientDialog from "./entity/clients/NewClientDialog.vue";
+import ServiceDialog from "./entity/services/ServiceDialog.vue";
+import Service from "../models/service";
 
-export default {
+export default defineComponent({
   name: "Header",
   components: {
     SearchIcon,
@@ -191,15 +194,16 @@ export default {
     ServiceDialog,
   },
   methods: {
-    openServiceDialog() {
+    openServiceDialog(): void {
       this.newService = {
+        id: null,
         service: "",
         price: 0,
         archived: false,
       };
       this.isDialogServiceOpen = true;
     },
-    closeServiceDialog(save) {
+    closeServiceDialog(save: boolean) {
       if (save) {
         this.$store.dispatch("services/createService", this.newService);
       }
@@ -208,15 +212,12 @@ export default {
   },
   data() {
     return {
-      value: [],
-      options: ["Batman", "Robin", "Joker"],
-      isNewClientDialogOpen: false,
-      isDialogServiceOpen: false,
-      newService: null,
+      isNewClientDialogOpen: false as boolean,
+      isDialogServiceOpen: false as boolean,
+      newService: null as Service | null,
     };
   },
-};
+});
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>
-<style scoped></style>

@@ -33,24 +33,28 @@
   <button @click="moreResults">Plus de résultats</button>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import _slice from "lodash/slice";
 import _values from "lodash/values";
 import _sortBy from "lodash/sortBy";
-import ListLoader from "../../utils/ListLoader";
-import ServiceDialog from "./ServiceDialog";
+import ListLoader from "../../utils/ListLoader.vue";
+import ServiceDialog from "./ServiceDialog.vue";
+// @ts-ignore
 import { ArchiveIcon } from "@heroicons/vue/solid";
+import Service from "../../../models/service";
 
-const INITIAL_DISPLAY_RESULTS = 10;
+const INITIAL_DISPLAY_RESULTS: number = 10;
 
-export default {
+export default defineComponent({
   name: "ServicesList",
   components: { ListLoader, ServiceDialog, ArchiveIcon },
   computed: {
-    servicesFiltered() {
+    servicesFiltered(): Array<Service> {
       return _slice(
-        _sortBy(_values(this.$store.state.services.services), (o) =>
-          o.service.toLowerCase()
+        _sortBy(
+          _values(this.$store.state.services.services),
+          (o) => o.service?.toLowerCase() || ""
         ),
         0,
         this.nbDisplayResults
@@ -58,15 +62,16 @@ export default {
     },
   },
   methods: {
-    moreResults() {
+    moreResults(): void {
       this.nbDisplayResults += INITIAL_DISPLAY_RESULTS;
     },
-    openDialog(service) {
+    openDialog(service: Service): void {
       this.selectedService = service;
       this.isDialogServiceOpen = true;
     },
-    closeDialog(save) {
+    closeDialog(save: boolean) {
       if (save) {
+        // TODO gérer le retour de l'appel
         this.$store.dispatch("services/updateService", this.selectedService);
       }
       this.isDialogServiceOpen = false;
@@ -74,15 +79,18 @@ export default {
   },
   data() {
     return {
-      nbDisplayResults: INITIAL_DISPLAY_RESULTS,
-      isServiceLoaderDisplayed: false,
-      isDialogServiceOpen: false,
-      selectedService: null,
+      nbDisplayResults: INITIAL_DISPLAY_RESULTS as number,
+      isServiceLoaderDisplayed: false as boolean,
+      isDialogServiceOpen: false as boolean,
+      selectedService: null as Service | null,
     };
   },
   mounted() {
     // Affiche l'écran de chargement qu'après un certain temps.
-    let timeout = setTimeout(() => (this.isServiceLoaderDisplayed = true), 500);
+    let timeout: ReturnType<typeof setTimeout> = setTimeout(
+      () => (this.isServiceLoaderDisplayed = true),
+      500
+    );
 
     // TODO Ne pas récupérer tous les services, faire de la pagination côté serveur.
     this.$store.dispatch("services/getServices").then(() => {
@@ -90,7 +98,5 @@ export default {
       this.isServiceLoaderDisplayed = false;
     });
   },
-};
+});
 </script>
-
-<style scoped></style>

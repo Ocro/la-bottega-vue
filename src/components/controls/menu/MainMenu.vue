@@ -21,7 +21,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import MenuButton from "./MenuButton.vue";
 import MenuCategory from "./MenuCategory.vue";
 import {
@@ -30,9 +31,9 @@ import {
   CalendarIcon,
   UserCircleIcon,
   EmojiSadIcon,
-} from "@heroicons/vue/solid";
+} from "heroicons-vue3/solid";
 
-export default {
+export default defineComponent({
   name: "MainMenu",
   components: {
     MenuButton,
@@ -43,7 +44,7 @@ export default {
     EmojiSadIcon,
     MenuCategory,
   },
-};
+});
 </script>
 
 <style scoped></style>

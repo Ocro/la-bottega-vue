@@ -23,18 +23,20 @@
   <button @click="moreResults">Plus de résultats</button>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 import _slice from "lodash/slice";
 import _trim from "lodash/trim";
 import ListLoader from "../../utils/ListLoader.vue";
+import Client from "../../../models/client";
 
-const INITIAL_DISPLAY_RESULTS = 10;
+const INITIAL_DISPLAY_RESULTS: number = 10;
 
-export default {
+export default defineComponent({
   name: "ClientsList",
   components: { ListLoader },
   computed: {
-    clientsFiltered() {
+    clientsFiltered(): Array<Client> {
       return _slice(
         this.$store.state.clients.clients,
         0,
@@ -43,27 +45,28 @@ export default {
     },
   },
   methods: {
-    moreResults() {
+    moreResults(): void {
       this.nbDisplayResults += INITIAL_DISPLAY_RESULTS;
     },
-    addresse(client) {
+    addresse(client: Client): string {
       return _trim(
-        [client.address, [client.npa, client.city].join(" ").trim()].join(
-          ", "
-        ),
+        [client.address, [client.npa, client.city].join(" ").trim()].join(", "),
         ", "
       );
     },
   },
   data() {
     return {
-      nbDisplayResults: INITIAL_DISPLAY_RESULTS,
-      isClientLoaderDisplayed: false,
+      nbDisplayResults: INITIAL_DISPLAY_RESULTS as number,
+      isClientLoaderDisplayed: false as boolean,
     };
   },
   mounted() {
     // Affiche l'écran de chargement qu'après un certain temps.
-    let timeout = setTimeout(() => (this.isClientLoaderDisplayed = true), 500);
+    let timeout: ReturnType<typeof setTimeout> = setTimeout(
+      () => (this.isClientLoaderDisplayed = true),
+      500
+    );
 
     // TODO Ne pas récupérer tous les clients, faire de la pagination côté serveur.
     this.$store.dispatch("clients/getClients").then(() => {
@@ -71,7 +74,5 @@ export default {
       this.isClientLoaderDisplayed = false;
     });
   },
-};
+});
 </script>
-
-<style scoped></style>
