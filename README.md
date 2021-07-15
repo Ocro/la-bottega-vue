@@ -2,7 +2,7 @@
 
 ## Versions utilisées
 
-- node v14.17.1
+- node v14.17.3
 - npm 6.14.13
 - vue-cli 4.5.13
 
@@ -14,6 +14,15 @@ npm install
 ### Compiles and hot-reloads for development
 ```
 npm run serve
+```
+
+### Tester le build
+
+```
+npm install -g serve
+# -s flag means serve it in Single-Page Application mode
+# which deals with the routing problem below
+serve -s dist
 ```
 
 ### Compiles and minifies for production
