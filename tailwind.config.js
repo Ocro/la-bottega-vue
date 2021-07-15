@@ -1,10 +1,16 @@
 const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: { content: ["./public/**/*.html", "./src/**/*.vue"] },
   presets: [],
   darkMode: "class", // or 'media' or 'class'
   theme: {
+    extend: {
+      fontFamily: {
+        sans: ["Inter var", ...defaultTheme.fontFamily.sans],
+      },
+    },
     screens: {
       sm: "640px",
       md: "768px",
@@ -1030,5 +1036,5 @@ module.exports = {
     wordBreak: ["responsive"],
     zIndex: ["responsive", "focus-within", "focus"],
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };
