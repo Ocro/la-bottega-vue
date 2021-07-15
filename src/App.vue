@@ -1,41 +1,65 @@
 <template>
+  <Header />
   <MainMenu id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </MainMenu>
-  <router-view />
+  <div class="mt-24 ml-60">
+    <router-view />
+  </div>
 </template>
 
 <script>
-import MainMenu from "@/components/MainMenu";
+// TODO faire un lazy loading et n'afficher qu'un certains nombre de client
+// TODO éditer le fichier public/robots pour accepter aucun robot.
+// TODO faire un animate Pulse https://tailwindcss.com/docs/animation en lazy loading
+import Header from "./components/Header";
+import MainMenu from "./components/controls/menu/MainMenu";
 
 export default {
   name: "App",
   components: {
+    Header,
     MainMenu,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.b-text-base {
+  @apply dark:text-gray-400;
 }
 
-#nav {
-  padding: 30px;
+.b-button {
+  @apply justify-center
+    px-4
+    py-2
+    mx-1
+    my-4
+    text-sm
+    font-medium
+    text-gray-100
+    border border-transparent
+    rounded-md
+    focus:outline-none
+    focus:ring-2
+    focus:ring-offset-2
+    focus:ring-blue-500;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.b-button-primary {
+  @apply b-button dark:bg-blue-800 dark:hover:bg-blue-500;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.b-button-secondary {
+  @apply b-button dark:bg-gray-800 dark:hover:bg-gray-500;
+}
+
+.b-button-destruct {
+  @apply b-button dark:bg-red-800 dark:hover:bg-red-500;
+}
+
+.b-button-construct {
+  @apply b-button dark:bg-green-800 dark:hover:bg-green-500;
 }
 </style>
