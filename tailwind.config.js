@@ -24,7 +24,7 @@ module.exports = {
 
       black: colors.black,
       white: colors.white,
-      gray: colors.coolGray,
+      gray: colors.gray,
       red: colors.red,
       yellow: colors.amber,
       green: colors.emerald,
@@ -240,6 +240,8 @@ module.exports = {
     },
     flex: {
       1: "1 1 0%",
+      2: "2 2 0%",
+      4: "4 4 0%",
       auto: "1 1 auto",
       initial: "0 1 auto",
       none: "none",
