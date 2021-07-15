@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-0 pt-20 h-screen w-52 flex flex-col">
+  <div class="fixed top-0 pt-20 h-screen w-52 flex flex-col hidden sm:block">
     <menu-category>Annuaires</menu-category>
     <menu-button title="Clients" b-route-name="Clients">
       <user-group-icon></user-group-icon>

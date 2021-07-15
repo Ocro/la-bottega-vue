@@ -26,7 +26,7 @@
     <div class="flex-none">
       {{ service.price }} {{ $store.state.globals.CURRENCY }}
     </div>
-    <div class="flex-none b-text-base ml-10 w-6 h-6">
+    <div class="flex-none b-text-base ml-3 sm:ml-10 w-6 h-6">
       <archive-icon v-if="service.archived"></archive-icon>
     </div>
   </div>

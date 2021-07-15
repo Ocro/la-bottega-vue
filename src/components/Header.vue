@@ -1,7 +1,7 @@
 <template>
   <new-client-dialog
     :is-open="isNewClientDialogOpen"
-    @close="isNewClientDialogOpen = false"
+    @close="closeNewClientDialog()"
   ></new-client-dialog>
   <service-dialog
     :is-open="isDialogServiceOpen"
@@ -66,18 +66,20 @@
     </div>
     <button
       v-wave
-      @click="isNewClientDialogOpen = true"
+      @click="openNewClientDialog()"
       class="
         b-text-base
         flex
         px-4
         h-11
         ml-2
-        flex
         items-center
         rounded-full
         dark:hover:bg-gray-700 dark:hover:text-white
         transition-colors
+        whitespace-nowrap
+        hidden
+        sm:flex
       "
     >
       <user-add-icon class="h-5 w-5 mr-1" />
@@ -110,24 +112,43 @@
         <menu-items
           class="
             absolute
-            left-0
+            right-3
+            lg:left-0
             w-80
             mt-2
             origin-top-left
             dark:bg-gray-700
-            divide-y divide-gray-400
             rounded-md
             shadow-xl
           "
         >
-          <div>
+          <div class="block sm:hidden">
+            <menu-item v-slot="{ active }">
+              <button
+                v-wave
+                @click="openNewClientDialog()"
+                :class="[
+                  active ? 'bg-gray-600 text-white' : 'b-text-base',
+                  'group flex rounded-t-md items-center w-full p-3 transition-colors',
+                ]"
+              >
+                <user-add-icon
+                  :active="active"
+                  class="w-5 h-5 mr-2"
+                  aria-hidden="true"
+                />
+                Ajouter un client
+              </button>
+            </menu-item>
+          </div>
+          <div class="border-t sm:border-t-0 border-gray-400">
             <menu-item v-slot="{ active }">
               <button
                 v-wave
                 @click="openServiceDialog"
                 :class="[
                   active ? 'bg-gray-600 text-white' : 'b-text-base',
-                  'group flex rounded-t-md items-center w-full p-3 transition-colors',
+                  'group flex rounded-t-none sm:rounded-t-md items-center w-full p-3 transition-colors',
                 ]"
               >
                 <scissors-icon
@@ -139,7 +160,7 @@
               </button>
             </menu-item>
           </div>
-          <div>
+          <div class="border-t border-gray-400">
             <menu-item v-slot="{ active }">
               <button
                 v-wave
@@ -202,6 +223,13 @@ export default defineComponent({
     ServiceDialog,
   },
   methods: {
+    openNewClientDialog(): void {
+      this.isNewClientDialogOpen = true;
+    },
+    closeNewClientDialog(save: boolean = false): void {
+      console.log(save);
+      this.isNewClientDialogOpen = false;
+    },
     openServiceDialog(): void {
       this.newService = {
         id: null,
@@ -211,7 +239,7 @@ export default defineComponent({
       };
       this.isDialogServiceOpen = true;
     },
-    closeServiceDialog(save: boolean) {
+    closeServiceDialog(save: boolean = false): void {
       if (save) {
         this.$store.dispatch("services/createService", this.newService);
       }

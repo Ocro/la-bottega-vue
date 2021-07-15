@@ -4,7 +4,7 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </MainMenu>
-  <div class="mt-24 ml-60">
+  <div class="mt-24 mx-2 sm:mr-0 sm:ml-60">
     <router-view />
   </div>
 </template>

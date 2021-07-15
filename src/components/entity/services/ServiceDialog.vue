@@ -81,7 +81,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: Object as PropType<Service>,
-      default: null,
+      required: true,
     },
     isOpen: {
       type: Boolean,
