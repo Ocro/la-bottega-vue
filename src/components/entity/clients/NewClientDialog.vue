@@ -1,5 +1,5 @@
 <template>
-  <Dialog
+  <dialog-wrapper
     title="Ajouter un nouveau client"
     :is-open="isOpen"
     @close="closeDialog"
@@ -41,17 +41,17 @@
         Ajouter
       </button>
     </div>
-  </Dialog>
+  </dialog-wrapper>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import Dialog from "../../utils/Dialog.vue";
-import Client from "../../../models/client";
+import DialogWrapper from "@/components/utils/Dialog.vue";
+import Client from "@/models/client";
 
 export default defineComponent({
   name: "NewClientDialog",
   components: {
-    Dialog,
+    DialogWrapper,
   },
   data() {
     return {
@@ -66,7 +66,12 @@ export default defineComponent({
       } as Client,
     };
   },
-  props: { isOpen: Boolean },
+  props: {
+    "is-open": {
+      type: Boolean,
+      default: true,
+    },
+  },
   emits: { close: null },
   methods: {
     closeDialog(): void {

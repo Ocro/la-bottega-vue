@@ -22,7 +22,16 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "MenuButton",
-  props: ["title", "b-route-name"],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    "b-route-name": {
+      type: String,
+      required: true,
+    },
+  },
 });
 </script>
 
