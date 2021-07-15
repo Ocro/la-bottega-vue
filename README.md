@@ -1,5 +1,11 @@
 # la-bottega-vue
 
+## Versions utilisées
+
+- node v14.17.1
+- npm 6.14.13
+- vue-cli 4.5.13
+
 ## Project setup
 ```
 npm install
