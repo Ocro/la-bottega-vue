@@ -1,10 +1,21 @@
 <template>
-  <div id="nav">
+  <MainMenu id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </div>
+  </MainMenu>
   <router-view />
 </template>
+
+<script>
+import MainMenu from "@/components/MainMenu";
+
+export default {
+  name: "App",
+  components: {
+    MainMenu,
+  },
+};
+</script>
 
 <style>
 #app {
