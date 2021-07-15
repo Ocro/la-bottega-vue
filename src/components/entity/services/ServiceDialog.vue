@@ -1,5 +1,5 @@
 <template>
-  <Dialog
+  <dialog-wrapper
     :is-open="isOpen"
     @close="closeDialog"
     :title="title"
@@ -24,7 +24,7 @@
           @input="
             $emit('update:modelValue', {
               ...modelValue,
-              price: parseInt($event.target.value, 10),
+              price: $event.target.value,
             })
           "
         />
@@ -66,17 +66,17 @@
         {{ btnSaveTitle }}
       </button>
     </div>
-  </Dialog>
+  </dialog-wrapper>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Dialog from "../../utils/Dialog.vue";
-import Service from "../../../models/service";
+import DialogWrapper from "@/components/utils/Dialog.vue";
+import Service from "@/models/service";
 
 export default defineComponent({
   name: "ServiceDialog",
   components: {
-    Dialog,
+    DialogWrapper,
   },
   props: {
     modelValue: {
@@ -98,7 +98,8 @@ export default defineComponent({
   emits: {
     // eslint-disable-next-line no-unused-vars
     "update:modelValue"(payload: Service) {
-      return true;
+      // TODO Fonctionne pas, vérifier pourquoi.
+      return !isNaN(payload.price);
     },
     close: null,
   },

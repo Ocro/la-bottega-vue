@@ -1,6 +1,6 @@
 <template>
-  <TransitionRoot :show="isOpen">
-    <HeadlessuiDialog as="div" @close="closeDialog">
+  <transition-root :show="isOpen">
+    <headlessui-dialog as="div" @close="closeDialog">
       <div class="fixed inset-0 z-20 overflow-y-auto">
         <div class="min-h-screen px-4 text-center">
           <!-- FIXME la transition passe de 20 à 100 d'un coup, laissant un fond noir. -->
@@ -13,14 +13,14 @@
           <!--            leave-from="opacity-20"-->
           <!--            leave-to="opacity-0"-->
           <!--          >-->
-          <DialogOverlay class="fixed inset-0 bg-black opacity-20" />
+          <dialog-overlay class="fixed inset-0 bg-black opacity-20" />
           <!--          </TransitionChild>-->
 
           <span class="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
 
-          <TransitionChild
+          <transition-child
             as="template"
             enter="duration-300 ease-out"
             enter-from="opacity-0 scale-95"
@@ -46,19 +46,19 @@
                 rounded-2xl
               "
             >
-              <DialogTitle
+              <dialog-title
                 as="h3"
                 class="text-lg font-medium leading-6 text-gray-900 b-text-base"
               >
                 {{ title }}
-              </DialogTitle>
+              </dialog-title>
               <slot></slot>
             </div>
-          </TransitionChild>
+          </transition-child>
         </div>
       </div>
-    </HeadlessuiDialog>
-  </TransitionRoot>
+    </headlessui-dialog>
+  </transition-root>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -80,9 +80,18 @@ export default defineComponent({
     DialogTitle,
   },
   props: {
-    isOpen: Boolean,
-    classDialog: String,
-    title: String,
+    "is-open": {
+      type: Boolean,
+      default: false,
+    },
+    "class-dialog": {
+      type: String,
+      default: "",
+    },
+    title: {
+      type: String,
+      required: true,
+    },
   },
   methods: {
     closeDialog(): void {

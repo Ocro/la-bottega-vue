@@ -1,15 +1,15 @@
 <template>
-  <NewClientDialog
+  <new-client-dialog
     :is-open="isNewClientDialogOpen"
     @close="isNewClientDialogOpen = false"
-  ></NewClientDialog>
-  <ServiceDialog
+  ></new-client-dialog>
+  <service-dialog
     :is-open="isDialogServiceOpen"
     @close="closeServiceDialog"
     v-model="newService"
     title="Ajouter un service"
     btn-save-title="Ajouter"
-  ></ServiceDialog>
+  ></service-dialog>
   <nav
     class="fixed dark:bg-gray-800 py-2 flex items-center top-0 inset-x-0 z-20"
   >
@@ -80,20 +80,24 @@
         transition-colors
       "
     >
-      <UserAddIcon class="h-5 w-5 mr-1" />
+      <user-add-icon class="h-5 w-5 mr-1" />
       <span>Ajouter un client</span>
     </button>
-    <Menu as="div" class="relative inline-block text-left" v-slot="{ open }">
+    <menu-base
+      as="div"
+      class="relative inline-block text-left"
+      v-slot="{ open }"
+    >
       <div>
-        <MenuButton
+        <menu-button
           v-wave
           :class="[
             open ? 'dark:bg-gray-700' : 'dark:hover:bg-gray-700',
             'rounded-full ml-2 p-3 dark:hover:text-white b-text-base transition-colors',
           ]"
         >
-          <DotsVerticalIcon class="h-5 w-5" />
-        </MenuButton>
+          <dots-vertical-icon class="h-5 w-5" />
+        </menu-button>
       </div>
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -103,7 +107,7 @@
         leave-from-class="transform scale-y-100 opacity-100"
         leave-to-class="transform scale-y-0 opacity-0"
       >
-        <MenuItems
+        <menu-items
           class="
             absolute
             left-0
@@ -117,7 +121,7 @@
           "
         >
           <div>
-            <MenuItem v-slot="{ active }">
+            <menu-item v-slot="{ active }">
               <button
                 v-wave
                 @click="openServiceDialog"
@@ -126,17 +130,17 @@
                   'group flex rounded-t-md items-center w-full p-3 transition-colors',
                 ]"
               >
-                <ScissorsIcon
+                <scissors-icon
                   :active="active"
                   class="w-5 h-5 mr-2"
                   aria-hidden="true"
                 />
                 Ajouter un service
               </button>
-            </MenuItem>
+            </menu-item>
           </div>
           <div>
-            <MenuItem v-slot="{ active }">
+            <menu-item v-slot="{ active }">
               <button
                 v-wave
                 :class="[
@@ -144,26 +148,25 @@
                   'group flex rounded-b-md items-center w-full p-3 transition-colors',
                 ]"
               >
-                <DatabaseIcon
+                <database-icon
                   :active="active"
                   class="w-5 h-5 mr-2"
                   aria-hidden="true"
                 />
                 Télécharger la base de données
               </button>
-            </MenuItem>
+            </menu-item>
           </div>
-        </MenuItems>
+        </menu-items>
       </transition>
-    </Menu>
+    </menu-base>
   </nav>
 </template>
 
 <script lang="ts">
 // TODO rounded-full pour la search bar or not?
 // TODO ajouter un bouton "effacer" pour vider facilement le champ de recherche quand il y a du texte.
-// TODO Voir pour un gris plus... noir et moins bleu.
-// TODO recherche pas numéro de téléphone
+// TODO recherche par numéro de téléphone
 import { defineComponent } from "vue";
 import {
   SearchIcon,
@@ -173,10 +176,15 @@ import {
   DatabaseIcon,
   // @ts-ignore
 } from "@heroicons/vue/solid";
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import NewClientDialog from "./entity/clients/NewClientDialog.vue";
-import ServiceDialog from "./entity/services/ServiceDialog.vue";
-import Service from "../models/service";
+import {
+  Menu as MenuBase,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+} from "@headlessui/vue";
+import NewClientDialog from "@/components/entity/clients/NewClientDialog.vue";
+import ServiceDialog from "@/components/entity/services/ServiceDialog.vue";
+import Service from "@/models/service";
 
 export default defineComponent({
   name: "Header",
@@ -186,7 +194,7 @@ export default defineComponent({
     DotsVerticalIcon,
     ScissorsIcon,
     DatabaseIcon,
-    Menu,
+    MenuBase,
     MenuButton,
     MenuItems,
     MenuItem,
@@ -212,8 +220,8 @@ export default defineComponent({
   },
   data() {
     return {
-      isNewClientDialogOpen: false as boolean,
-      isDialogServiceOpen: false as boolean,
+      isNewClientDialogOpen: false,
+      isDialogServiceOpen: false,
       newService: null as Service | null,
     };
   },

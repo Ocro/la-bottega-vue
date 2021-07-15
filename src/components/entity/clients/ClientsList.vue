@@ -1,5 +1,5 @@
 <template>
-  <ListLoader v-if="isClientLoaderDisplayed" />
+  <list-loader v-if="isClientLoaderDisplayed" />
   <div
     v-for="client in clientsFiltered"
     :key="client.id"
@@ -27,8 +27,8 @@
 import { defineComponent } from "vue";
 import _slice from "lodash/slice";
 import _trim from "lodash/trim";
-import ListLoader from "../../utils/ListLoader.vue";
-import Client from "../../../models/client";
+import ListLoader from "@/components/utils/ListLoader.vue";
+import Client from "@/models/client";
 
 const INITIAL_DISPLAY_RESULTS: number = 10;
 
@@ -57,8 +57,8 @@ export default defineComponent({
   },
   data() {
     return {
-      nbDisplayResults: INITIAL_DISPLAY_RESULTS as number,
-      isClientLoaderDisplayed: false as boolean,
+      nbDisplayResults: INITIAL_DISPLAY_RESULTS,
+      isClientLoaderDisplayed: false,
     };
   },
   mounted() {

@@ -1,12 +1,12 @@
 <template>
-  <ServiceDialog
+  <service-dialog
     :is-open="isDialogServiceOpen"
     @close="closeDialog"
     v-model="selectedService"
     title="Modifier un service"
     btn-save-title="Modifier"
-  ></ServiceDialog>
-  <ListLoader v-if="isServiceLoaderDisplayed" />
+  ></service-dialog>
+  <list-loader v-if="isServiceLoaderDisplayed" />
   <div
     v-for="service in servicesFiltered"
     :key="service.id"
@@ -27,7 +27,7 @@
       {{ service.price }} {{ $store.state.globals.CURRENCY }}
     </div>
     <div class="flex-none b-text-base ml-10 w-6 h-6">
-      <ArchiveIcon v-if="service.archived"></ArchiveIcon>
+      <archive-icon v-if="service.archived"></archive-icon>
     </div>
   </div>
   <button @click="moreResults">Plus de résultats</button>
@@ -38,11 +38,11 @@ import { defineComponent } from "vue";
 import _slice from "lodash/slice";
 import _values from "lodash/values";
 import _sortBy from "lodash/sortBy";
-import ListLoader from "../../utils/ListLoader.vue";
-import ServiceDialog from "./ServiceDialog.vue";
+import ListLoader from "@/components/utils/ListLoader.vue";
+import ServiceDialog from "@/components/entity/services/ServiceDialog.vue";
 // @ts-ignore
 import { ArchiveIcon } from "@heroicons/vue/solid";
-import Service from "../../../models/service";
+import Service from "@/models/service";
 
 const INITIAL_DISPLAY_RESULTS: number = 10;
 
