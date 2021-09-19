@@ -1,9 +1,9 @@
 <template>
   <Header />
-  <MainMenu id="nav">
+  <main-menu id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-  </MainMenu>
+  </main-menu>
   <div class="mt-24 mx-2 sm:mr-0 sm:ml-60">
     <router-view />
   </div>
