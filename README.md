@@ -1,3 +1,4 @@
+test
 # la-bottega-vue
 
 ## Versions utilisées
